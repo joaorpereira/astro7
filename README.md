@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Customer Dashboard
 
-## Getting Started
+Aplicação em **Next.js + React + TypeScript** que consome as APIs de Users e Carts do [DummyJSON](https://dummyjson.com) e exibe uma tabela de clientes com dados agregados de compras.
 
-First, run the development server:
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev        # servidor de desenvolvimento
+npm run build      # build de produção
+npm run start      # servidor de produção
+npm run lint       # ESLint
+npm run test       # testes unitários (Vitest)
+```
 
-## Learn More
+## Technical Decisions
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js App Router** — estrutura moderna com Server/Client Components
+- **TanStack Query** — cache, loading/error states, retry e refetch simplificados
+- **Feature-based architecture** — código organizado por domínio (`features/customers`)
+- **DTO + Adapter pattern** — a UI nunca consome dados raw da API
+- **Zod** — validação de respostas externas na camada de serviço
+- **Tailwind CSS** — estilização utilitária com suporte a dark mode
+- **Vitest** — testes unitários para a camada de domínio (adapters)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Data Transformation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Os dados de `users` e `carts` são transformados antes de chegar à UI:
 
-## Deploy on Vercel
+1. **Services** (`users.service.ts`, `carts.service.ts`) — fetch + validação Zod
+2. **Adapter** (`customer.adapter.ts`) — join por `userId`, soma de `quantity` e `total` de todos os produtos em todos os carrinhos do usuário
+3. **View Model** (`CustomerSummary`) — `{ id, name, email, totalProducts, totalSpent }`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Usuários sem carrinho recebem `totalProducts: 0` e `totalSpent: 0`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Features
+
+- Listagem de clientes com e-mail, quantidade total de produtos e valor total das compras
+- Cards de resumo: total de clientes, receita, produtos vendidos e ticket médio
+- Busca por nome (com debounce de 300ms, contador de resultados e botão limpar)
+- Ordenação por valor total (asc/desc) com indicadores visuais e `aria-sort`
+- Paginação client-side (10 clientes por página)
+- Loading state com skeleton rows
+- Error state com botão de retry e feedback de recarregamento
+- Badge "Top 3" para maiores compradores (ordenação decrescente)
+- Avatares com iniciais e scroll suave ao trocar de página
+
+## Future Improvements
+
+- Server Components / SSR para dados iniciais
+- Paginação client-side ou backend
+- Testes E2E com Playwright
+- Observability (Sentry, logging)
+- Virtualização para listas grandes
