@@ -170,8 +170,8 @@ export function CartItemsModal({
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/80">
-                          {cart.products.map((product) => (
-                            <tr key={`${cart.id}-${product.id}`}>
+                          {cart.products.map((product, productIndex) => (
+                            <tr key={`${cart.id}-${productIndex}-${product.id}`}>
                               <td className="px-4 py-3">
                                 <div className="flex items-center gap-3">
                                   {product.thumbnail ? (
