@@ -8,7 +8,6 @@ import type { CustomerSummary } from "@/features/customers/types/customer.types"
 
 interface CustomerRowProps {
   customer: CustomerSummary;
-  rank?: number;
   onViewCartItems: (
     customer: CustomerSummary,
     trigger: HTMLButtonElement,
@@ -17,7 +16,6 @@ interface CustomerRowProps {
 
 export function CustomerRow({
   customer,
-  rank,
   onViewCartItems,
 }: CustomerRowProps) {
   const initials = getInitials(customer.name);

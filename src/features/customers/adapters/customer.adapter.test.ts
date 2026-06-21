@@ -14,6 +14,10 @@ const baseUser: UserDTO = {
 };
 
 describe("mapUsersAndCartsToCustomerSummary", () => {
+  it("returns an empty array when there are no users", () => {
+    expect(mapUsersAndCartsToCustomerSummary([], [])).toEqual([]);
+  });
+
   it("returns zero totals when user has no carts", () => {
     const users: UserDTO[] = [baseUser];
     const carts: CartDTO[] = [];
@@ -171,6 +175,85 @@ describe("mapUsersAndCartsToCustomerSummary", () => {
             ],
           },
         ],
+      },
+    ]);
+  });
+
+  it("derives missing product fields and cart totals from available data", () => {
+    const users: UserDTO[] = [baseUser];
+    const carts: CartDTO[] = [
+      {
+        id: 30,
+        userId: 1,
+        products: [
+          {
+            quantity: 2,
+            total: 50,
+            thumbnail: "https://cdn.example.com/item.png",
+          },
+        ],
+      },
+    ];
+
+    const result = mapUsersAndCartsToCustomerSummary(users, carts);
+
+    expect(result[0]).toEqual({
+      id: 1,
+      name: "John Doe",
+      email: "john.doe@example.com",
+      totalProducts: 2,
+      totalSpent: 50,
+      carts: [
+        {
+          id: 30,
+          total: 50,
+          products: [
+            {
+              id: 1,
+              title: "Produto 1",
+              price: 25,
+              quantity: 2,
+              total: 50,
+              thumbnail: "https://cdn.example.com/item.png",
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  it("preserves user order from the input list", () => {
+    const users: UserDTO[] = [
+      { id: 3, firstName: "C", lastName: "User", email: "c@example.com" },
+      { id: 1, firstName: "A", lastName: "User", email: "a@example.com" },
+      { id: 2, firstName: "B", lastName: "User", email: "b@example.com" },
+    ];
+
+    const result = mapUsersAndCartsToCustomerSummary(users, []);
+
+    expect(result.map((customer) => customer.id)).toEqual([3, 1, 2]);
+  });
+
+  it("handles carts with no products without affecting totals", () => {
+    const users: UserDTO[] = [baseUser];
+    const carts: CartDTO[] = [
+      {
+        id: 40,
+        userId: 1,
+        total: 0,
+        products: [],
+      },
+    ];
+
+    const result = mapUsersAndCartsToCustomerSummary(users, carts);
+
+    expect(result[0]?.totalProducts).toBe(0);
+    expect(result[0]?.totalSpent).toBe(0);
+    expect(result[0]?.carts).toEqual([
+      {
+        id: 40,
+        total: 0,
+        products: [],
       },
     ]);
   });

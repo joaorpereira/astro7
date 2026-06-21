@@ -149,21 +149,13 @@ export function CustomerTable({
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/80">
-                {pagination.items.map((customer, index) => {
-                  const globalRank =
-                    sortDirection === "desc"
-                      ? pagination.startIndex + index
-                      : undefined;
-
-                  return (
-                    <CustomerRow
-                      key={customer.id}
-                      customer={customer}
-                      rank={globalRank}
-                      onViewCartItems={onViewCartItems}
-                    />
-                  );
-                })}
+                {pagination.items.map((customer) => (
+                  <CustomerRow
+                    key={customer.id}
+                    customer={customer}
+                    onViewCartItems={onViewCartItems}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
