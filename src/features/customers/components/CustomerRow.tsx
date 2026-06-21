@@ -5,6 +5,7 @@ import {
   getInitials,
 } from "@/features/customers/utils/customer.utils";
 import type { CustomerSummary } from "@/features/customers/types/customer.types";
+import { interactiveFocus } from "@/shared/styles/interactive";
 
 interface CustomerRowProps {
   customer: CustomerSummary;
@@ -23,7 +24,7 @@ export function CustomerRow({
   const hasCartItems = customer.carts.some((cart) => cart.products.length > 0);
 
   return (
-    <tr className="group transition hover:bg-violet-50/50 dark:hover:bg-violet-950/20">
+    <tr className="group transition hover:bg-zinc-50 dark:hover:bg-zinc-900/50">
       <td className="px-5 py-4">
         <div className="flex items-center gap-3">
           <div
@@ -60,7 +61,7 @@ export function CustomerRow({
           onClick={(event) => onViewCartItems(customer, event.currentTarget)}
           disabled={!hasCartItems}
           aria-disabled={!hasCartItems}
-          className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-violet-700 transition hover:border-violet-300 hover:bg-violet-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 dark:border-zinc-700 dark:text-violet-300 dark:hover:border-violet-800 dark:hover:bg-violet-950/40 dark:focus-visible:ring-offset-zinc-950"
+          className={`inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-blue-700 transition hover:border-blue-200 hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-zinc-700 dark:text-blue-300 dark:hover:border-blue-900 dark:hover:bg-blue-950/30 ${interactiveFocus}`}
           aria-label={
             hasCartItems
               ? `Ver itens do carrinho de ${customer.name}`

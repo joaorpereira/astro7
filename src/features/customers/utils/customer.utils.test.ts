@@ -85,7 +85,7 @@ describe("getInitials", () => {
 });
 
 describe("getAvatarColor", () => {
-  it("returns a Tailwind background class from the accessible palette", () => {
+  it("returns a stable color class for a name", () => {
     expect(getAvatarColor("John Doe")).toMatch(/^bg-[a-z]+-700$/);
   });
 

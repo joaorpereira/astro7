@@ -7,6 +7,7 @@ import type {
   SortDirection,
 } from "@/features/customers/types/customer.types";
 import type { PaginationResult } from "@/features/customers/utils/customer.utils";
+import { interactiveFocus } from "@/shared/styles/interactive";
 
 interface CustomerTableProps {
   customers: CustomerSummary[];
@@ -29,14 +30,14 @@ function SortIcon({ direction }: { direction: SortDirection }) {
   return (
     <span className="ml-1.5 inline-flex flex-col gap-0.5" aria-hidden="true">
       <svg
-        className={`h-2.5 w-2.5 ${direction === "asc" ? "text-violet-600 dark:text-violet-400" : "text-zinc-300 dark:text-zinc-600"}`}
+        className={`h-2.5 w-2.5 ${direction === "asc" ? "text-blue-600 dark:text-blue-400" : "text-zinc-300 dark:text-zinc-600"}`}
         viewBox="0 0 10 6"
         fill="currentColor"
       >
         <path d="M5 0L10 6H0L5 0Z" />
       </svg>
       <svg
-        className={`h-2.5 w-2.5 ${direction === "desc" ? "text-violet-600 dark:text-violet-400" : "text-zinc-300 dark:text-zinc-600"}`}
+        className={`h-2.5 w-2.5 ${direction === "desc" ? "text-blue-600 dark:text-blue-400" : "text-zinc-300 dark:text-zinc-600"}`}
         viewBox="0 0 10 6"
         fill="currentColor"
       >
@@ -74,8 +75,8 @@ export function CustomerTable({
           >
             Lista de clientes
           </h2>
-          <p id="customers-table-description" className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
-            Use Tab para navegar. Pressione Enter ou Espaço em &quot;Valor Total&quot; para ordenar a página atual.
+          <p id="customers-table-description" className="sr-only">
+            Tabela de clientes com e-mail, produtos, valor total e carrinho.
           </p>
         </div>
         <SearchBar
@@ -125,13 +126,13 @@ export function CustomerTable({
                     <button
                       type="button"
                       onClick={onSortByTotalSpent}
-                      className="ml-auto inline-flex cursor-pointer items-center rounded-lg px-2 py-1 transition hover:bg-violet-100 hover:text-violet-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 dark:hover:bg-violet-950/50 dark:hover:text-violet-300 dark:focus-visible:ring-offset-zinc-950"
+                      className={`ml-auto inline-flex cursor-pointer items-center rounded-lg px-2 py-1 transition hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/40 dark:hover:text-blue-300 ${interactiveFocus}`}
                       aria-label={`Ordenar por valor total das compras, ordem ${sortDirection === "asc" ? "crescente" : "decrescente"}`}
                     >
                       <span
                         className={
                           sortDirection
-                            ? "text-violet-700 dark:text-violet-300"
+                            ? "text-blue-700 dark:text-blue-300"
                             : undefined
                         }
                       >

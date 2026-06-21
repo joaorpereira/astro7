@@ -1,3 +1,5 @@
+import { interactiveFocusDanger } from "@/shared/styles/interactive";
+
 interface ErrorStateProps {
   onRetry: () => void;
   isRetrying?: boolean;
@@ -35,7 +37,7 @@ export function ErrorState({ onRetry, isRetrying = false }: ErrorStateProps) {
         type="button"
         onClick={onRetry}
         disabled={isRetrying}
-        className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70 dark:focus-visible:ring-offset-zinc-950"
+        className={`mt-5 inline-flex cursor-pointer items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70 ${interactiveFocusDanger}`}
       >
         {isRetrying && (
           <svg

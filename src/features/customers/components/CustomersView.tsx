@@ -103,26 +103,21 @@ export function CustomersView() {
   };
 
   return (
-    <div className="relative min-h-full">
+    <div className="min-h-full">
       <SkipLink href="#main-content" label="Ir para o conteúdo principal" />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-violet-100/60 via-transparent to-transparent dark:from-violet-950/30"
-      />
 
       <main
         id="main-content"
         tabIndex={-1}
-        className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8 focus:outline-none"
+        className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8 focus:outline-none"
       >
         <header>
-          <p className="text-sm font-medium text-violet-600 dark:text-violet-400">
-            Dashboard
-          </p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
             Clientes
           </h1>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            Compras agregadas por usuário
+          </p>
         </header>
 
         {isLoading && <LoadingState />}
@@ -136,7 +131,7 @@ export function CustomersView() {
             {isFetching && (
               <div
                 role="status"
-                className="absolute right-0 top-0 z-10 flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-violet-600 shadow-sm backdrop-blur dark:bg-zinc-900/90 dark:text-violet-400"
+                className="absolute right-0 top-0 z-10 flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
                 aria-live="polite"
               >
                 <svg

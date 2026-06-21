@@ -9,6 +9,7 @@ import {
 } from "@/features/customers/utils/customer.utils";
 import type { CustomerSummary } from "@/features/customers/types/customer.types";
 import { useFocusTrap } from "@/shared/hooks/useFocusTrap";
+import { interactiveFocus } from "@/shared/styles/interactive";
 
 interface CartItemsModalProps {
   customer: CustomerSummary;
@@ -89,7 +90,7 @@ export function CartItemsModal({
             ref={closeButtonRef}
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 dark:focus-visible:ring-offset-zinc-900"
+            className={`inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 dark:focus-visible:ring-offset-zinc-900 ${interactiveFocus}`}
             aria-label="Fechar modal de itens do carrinho"
           >
             <svg
