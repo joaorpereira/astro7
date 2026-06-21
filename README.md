@@ -80,9 +80,33 @@ Usuários sem carrinho recebem `totalProducts: 0`, `totalSpent: 0` e `carts: []`
 - Anúncios `aria-live` para busca, paginação e estados de carregamento
 - Indicadores `focus-visible` e suporte a `prefers-reduced-motion`
 
+## Deployment
+
+The app deploys to **GitHub Pages** via GitHub Actions on every push to `main`.
+
+**Live URL:** [https://joaorpereira.github.io/astro7/](https://joaorpereira.github.io/astro7/)
+
+### First-time setup
+
+1. Push this repo to GitHub
+2. Open **Settings → Pages**
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**
+4. Push to `main` (or run the workflow manually from the **Actions** tab)
+
+The workflow (`.github/workflows/deploy.yml`) runs lint and tests, builds a static export with `GITHUB_PAGES=true`, and publishes the `out/` folder.
+
+### Local preview of the GitHub Pages build
+
+```bash
+GITHUB_PAGES=true npm run build
+npx serve out
+```
+
+Then open the URL shown by `serve` (append `/astro7` if needed).
+
 ## Tests
 
-Cobertura unitária com Vitest (40 testes):
+Cobertura unitária com Vitest (26 testes):
 
 - **Adapter** — agregação de totais, fallbacks de campos ausentes, mapeamento de carrinhos
 - **Utils** — ordenação, formatação, iniciais e cores de avatar
